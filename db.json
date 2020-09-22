@@ -1,0 +1,7 @@
+{
+  "todos": [
+    { "id": "1", "text": "TypeScript", "completed": false },
+    { "id": "2", "text": "React", "completed": false },
+    { "id": false, "text": "Material UI", "completed": false }
+  ]
+}
