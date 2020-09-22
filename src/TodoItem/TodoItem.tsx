@@ -4,7 +4,7 @@ import React from 'react';
 type TodoItemProps = {
   text: string;
   completed: boolean;
-  id: string;
+  id?: string;
   toggleCompleteTodo: (id: string) => void;
   deleteTodo: (id: string) => void;
 };
@@ -30,12 +30,12 @@ const TodoItem: React.FC<TodoItemProps> = ({
 
   return (
     <Card className={clasess.card} variant='outlined'>
-      <Checkbox checked={completed} onChange={() => toggleCompleteTodo(id)} />
+      <Checkbox checked={completed} onChange={() => toggleCompleteTodo(id!)} />
       <span className={completed ? 'done' : 'active'}>{text}</span>
       <Button
         variant='contained'
         color='secondary'
-        onClick={() => deleteTodo(id)}
+        onClick={() => deleteTodo(id!)}
       >
         Delete
       </Button>

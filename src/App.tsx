@@ -6,35 +6,38 @@ import TodoForm from './TodoForm/TodoForm';
 import TodoList from './TodoList/TodoList';
 import { useDispatch, useSelector } from 'react-redux';
 import {
-  addTodoItem,
+  addNewTodo,
   changeFilter,
-  completeTodo,
-  removeTodoItem,
+  fetchTodos,
+  removeTodo,
+  toggleTodoComplete,
 } from './redux/actions/actions';
 import { RootState } from './redux/store';
-
-const id = require('shortid');
 
 const App = () => {
   const dispatch = useDispatch();
   const todos = useSelector(({ todos }: RootState) => todos.todos);
   const filter = useSelector(({ filter }: RootState) => filter);
 
+  React.useEffect(() => {
+    console.log('EFFECT');
+    dispatch(fetchTodos());
+  }, [dispatch]);
+
   const addTodo = (title: string) => {
     const newTodo: ITodoItem = {
-      id: id.generate(),
       text: title,
       completed: false,
     };
-    dispatch(addTodoItem(newTodo));
+    dispatch(addNewTodo(newTodo));
   };
 
   const toggleCompleteTodo = (id: string) => {
-    dispatch(completeTodo(id));
+    dispatch(toggleTodoComplete(id));
   };
 
   const deleteTodo = (id: string) => {
-    dispatch(removeTodoItem(id));
+    dispatch(removeTodo(id));
   };
 
   const filterTodo = (todos: ITodoItem[], filter: string): ITodoItem[] => {

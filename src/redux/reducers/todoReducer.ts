@@ -1,3 +1,4 @@
+import { SET_TODOS } from './../constants';
 import { COMPLETE_TODO, REMOVE_TODO } from '../constants';
 import { TodoState, TodoActionTypes, ADD_TODO } from '../types';
 const initialState: TodoState = {
@@ -9,6 +10,12 @@ export const todoReducer = (
   action: TodoActionTypes
 ): TodoState => {
   switch (action.type) {
+    case SET_TODOS: {
+      return {
+        ...state,
+        todos: action.payload,
+      };
+    }
     case ADD_TODO:
       return {
         ...state,

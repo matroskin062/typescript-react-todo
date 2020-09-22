@@ -1,5 +1,14 @@
-import { COMPLETE_TODO, REMOVE_TODO, CHANGE_FILTER } from './constants';
+import { RootState } from './store';
+import {
+  COMPLETE_TODO,
+  REMOVE_TODO,
+  CHANGE_FILTER,
+  FETCH_TODOS,
+  SET_TODOS,
+} from './constants';
 import { ITodoItem } from './../interfaces';
+import { ThunkAction } from 'redux-thunk';
+import { Action } from 'redux';
 
 export const ADD_TODO = 'ADD_TODO';
 
@@ -34,9 +43,29 @@ interface ChangeFilterAction {
     filter: string;
   };
 }
+
+interface FetchTodosAction {
+  type: typeof FETCH_TODOS;
+  payload: ITodoItem[];
+}
+
+interface SetTodosAction {
+  type: typeof SET_TODOS;
+  payload: ITodoItem[];
+}
+
 export type TodoActionTypes =
   | AddTodoAction
   | RemoveTodoAction
-  | CompleteTodoAction;
+  | CompleteTodoAction
+  | FetchTodosAction
+  | SetTodosAction;
 
 export type FilterActionTypes = ChangeFilterAction;
+
+export type Thunk<ReturnType = void> = ThunkAction<
+  ReturnType,
+  RootState,
+  unknown,
+  Action<string>
+>;
