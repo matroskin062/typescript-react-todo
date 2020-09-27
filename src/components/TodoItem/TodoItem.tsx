@@ -8,6 +8,7 @@ type TodoItemProps = {
   toggleCompleteTodo: (id: string) => void;
   deleteTodo: (id: string) => void;
 };
+
 const TodoItem: React.FC<TodoItemProps> = ({
   text,
   completed,

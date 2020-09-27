@@ -2,7 +2,7 @@ import { SET_TODOS } from './../constants';
 import { COMPLETE_TODO, REMOVE_TODO } from '../constants';
 import { TodoState, TodoActionTypes, ADD_TODO } from '../types';
 const initialState: TodoState = {
-  todos: [{ id: '1', text: '1', completed: false }],
+  todos: [],
 };
 
 export const todoReducer = (

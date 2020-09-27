@@ -34,30 +34,28 @@ const setTodos = (todos: ITodoItem[]): TodoActionTypes => ({
   payload: todos,
 });
 
-export const fetchTodos = (): Thunk => (dispatch) => {
-  axios
-    .get<ITodoItem[]>('http://localhost:3005/todos')
-    .then(({ data }) => dispatch(setTodos(data)));
+export const fetchTodos = (): Thunk => async (dispatch) => {
+  const { data } = await axios.get<ITodoItem[]>('http://localhost:3005/todos');
+  dispatch(setTodos(data));
 };
 
-export const addNewTodo = (todo: ITodoItem): Thunk => (dispatch) => {
-  axios
-    .post('http://localhost:3005/todos', todo)
-    .then((res) => dispatch(addTodoItem(res.data)));
+export const addNewTodo = (todo: ITodoItem): Thunk => async (dispatch) => {
+  const { data } = await axios.post<ITodoItem>(
+    'http://localhost:3005/todos',
+    todo
+  );
+  dispatch(addTodoItem(data));
 };
 
-export const removeTodo = (id: string): Thunk => (dispatch) => {
-  axios
-    .delete(`http://localhost:3005/todos/${id}`)
-    .then(() => dispatch(removeTodoItem(id)));
+export const removeTodo = (id: string): Thunk => async (dispatch) => {
+  await axios.delete(`http://localhost:3005/todos/${id}`);
+  dispatch(removeTodoItem(id));
 };
 
-export const toggleTodoComplete = (id: string): Thunk => (dispatch) => {
-  axios.get(`http://localhost:3005/todos/${id}`).then(({ data }) => {
-    axios
-      .patch(`http://localhost:3005/todos/${id}`, {
-        completed: !data.completed,
-      })
-      .then(() => dispatch(completeTodo(id)));
+export const toggleTodoComplete = (id: string): Thunk => async (dispatch) => {
+  const { data } = await axios.get(`http://localhost:3005/todos/${id}`);
+  await axios.patch(`http://localhost:3005/todos/${id}`, {
+    completed: !data.completed,
   });
+  dispatch(completeTodo(id));
 };
